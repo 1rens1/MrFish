@@ -18,13 +18,13 @@ This is a modified version by me.
 
 ## Installation
 
-1. Clone the git repo
-    - `git clone https://github.com/1rens1/MrFish`
-    - `cd MrFish`
-2. Install the required modules with pip.
-    - `pip install -r requirements.txt`
-3. Run the script with
-    - `python mrfish.py` or `python3 mrfish.py` if you are using bash.
+1. Clone the git repo<br/>
+    `git clone https://github.com/1rens1/MrFish`<br/>
+    `cd MrFish`
+2. Install the required modules with pip.<br/>
+    `pip install -r requirements.txt`
+3. Run the script with<br/>
+    `python mrfish.py` or `python3 mrfish.py` if you are using bash.
 
 ## Options
 
