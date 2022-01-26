@@ -41,4 +41,4 @@ We accept no responsibility to any person consequences of using this script.
 
 ## License
 
-The code is licensed under the MIT License.
+The code is licensed under the [MIT](https://github.com/1rens1/MrFish/blob/master/LICENSE) License.
