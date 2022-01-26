@@ -41,4 +41,7 @@ We accept no responsibility to any person consequences of using this script.
 
 ## License
 
-The code is licensed under the MIT License.
+The code is licensed under the [MIT](https://github.com/1rens1/MrFish/blob/master/LICENSE) License.
+<hr/>
+
+![image](https://user-images.githubusercontent.com/78131273/151118676-db99b575-fcb8-4b03-850a-8a53564b3eca.png)
