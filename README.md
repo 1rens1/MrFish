@@ -36,8 +36,8 @@ This is a modified version by me.
 
 ## User Warning
 
-Please do not use this other than spamming discord phishing links.
-We accept no responsibility to any person consequences of using this script.
+**Please do not use this other than spamming discord phishing links.
+We accept no responsibility to any person consequences of using this script.**
 
 ## License
 
