@@ -19,7 +19,6 @@ def generate_random_name():
     else:
         return str(random.choice(names)).lower() + random.choice(string.digits) + random.choice(string.digits)
 
-
 def generate_random_password():
     event = random.randint(0, 6)
     if event == 0:
@@ -32,13 +31,11 @@ def generate_random_password():
         return random.choice(string.digits) + random.choice(dictionary) + random.choice(names)
 
 
-proxy_list = json.loads(open('assets/proxies.json').read())
-get_proxy = random.choice(proxy_list)
-proxy = {'https': f'https://{get_proxy}'}
-
-
 def run():
     while True:
+        proxy_list = json.loads(open('assets/proxies.json').read())
+        get_proxy = random.choice(proxy_list)
+        proxy = {'https': f'https://{get_proxy}'}
         username = generate_random_name() + '@' + random.choice(emails) + \
             '.' + random.choice(ext)
         password = generate_random_password()
@@ -49,7 +46,7 @@ def run():
             })
             date = datetime.today().strftime('%H:%m:%S')
             print(
-                f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password}]')
+                f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password} {proxy}]')
         except SSLError as e:
             print('Error: URL can no longer be reached..')
         except Exception as e:
