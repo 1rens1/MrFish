@@ -7,7 +7,6 @@ import threading
 from requests.exceptions import SSLError
 from datetime import datetime
 
-
 def generate_random_name():
     event = random.randint(0, 4)
     if event == 0:
@@ -30,12 +29,14 @@ def generate_random_password():
     else:
         return random.choice(string.digits) + random.choice(dictionary) + random.choice(names)
 
-
 def run():
     while True:
-        proxy_list = json.loads(open('assets/proxies.json').read())
-        get_proxy = random.choice(proxy_list)
-        proxy = {'https': f'https://{get_proxy}'}
+        if use_proxy == 'y':
+            proxy_list = json.loads(open('assets/proxies.json').read())
+            get_proxy = random.choice(proxy_list)
+            proxy = {'https': f'https://{get_proxy}'}
+        if use_proxy == 'n':
+            proxy = {}
         username = generate_random_name() + '@' + random.choice(emails) + \
             '.' + random.choice(ext)
         password = generate_random_password()
@@ -46,7 +47,7 @@ def run():
             })
             date = datetime.today().strftime('%H:%m:%S')
             print(
-                f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password} {proxy}]')
+                f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password} - {proxy}]')
         except SSLError as e:
             print('Error: URL can no longer be reached..')
         except Exception as e:
@@ -63,7 +64,6 @@ def run():
                                                         
                                                         
 """
-
 
 mrfish_display = """.
  \033[93m       /`·.¸          \033[0m
