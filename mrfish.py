@@ -7,6 +7,7 @@ import threading
 from requests.exceptions import SSLError
 from datetime import datetime
 
+
 def generate_random_name():
     event = random.randint(0, 4)
     if event == 0:
@@ -17,6 +18,7 @@ def generate_random_name():
             random.choice(names)).lower()
     else:
         return str(random.choice(names)).lower() + random.choice(string.digits) + random.choice(string.digits)
+
 
 def generate_random_password():
     event = random.randint(0, 6)
@@ -29,14 +31,12 @@ def generate_random_password():
     else:
         return random.choice(string.digits) + random.choice(dictionary) + random.choice(names)
 
+
 def run():
     while True:
+        proxy = None
         if use_proxy == 'y':
-            proxy_list = json.loads(open('assets/proxies.json').read())
-            get_proxy = random.choice(proxy_list)
-            proxy = {'https': f'https://{get_proxy}'}
-        if use_proxy == 'n':
-            proxy = {}
+            proxy = f'socks5://{random.choice(proxy_list)}'
         username = generate_random_name() + '@' + random.choice(emails) + \
             '.' + random.choice(ext)
         password = generate_random_password()
@@ -44,26 +44,15 @@ def run():
             r = requests.post(url, allow_redirects=False, data={
                 str(formDataNameLogin): username,
                 str(formDataNamePass): password,
-            })
+            }, proxies=dict(http=proxy, https=proxy))
             date = datetime.today().strftime('%H:%m:%S')
             print(
-                f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password} - {proxy}]')
+                f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password}] {proxy}')
         except SSLError as e:
             print('Error: URL can no longer be reached..')
         except Exception as e:
-            print(f'Error: {e}')
+            print(f'Error: {e.__class__.__name__}')
 
-"""
-                      
-        /`·.¸          ___  ___      ______ _     _     
-       /¸...¸`:·       |  \/  |      |  ___(_)   | |    
-   ¸.·´  ¸   `·.¸.·´)  | .  . |_ __  | |_   _ ___| |__  
-  : © ):´;      ¸  {   | |\/| | '__| |  _| | / __| '_ \ 
-   `·.¸ `·  ¸.·´\`·¸)  | |  | | |    | |   | \__ \ | | |
-       `\\\\´´\¸.·´    \_|  |_/_|    \_|   |_|___/_| |_|
-                                                        
-                                                        
-"""
 
 mrfish_display = """.
  \033[93m       /`·.¸          \033[0m
@@ -95,7 +84,6 @@ if __name__ == '__main__':
             if use_proxy.lower() == 'y':
                 break
             if use_proxy.lower() == 'n':
-                proxy = {}
                 break
         else:
             print(' That is not a valid option')
@@ -108,7 +96,8 @@ if __name__ == '__main__':
     emails = json.loads(open('assets/emails.json').read())
     ext = json.loads(open('assets/extensions.json').read())
     dictionary = json.loads(open('assets/dictionary.json').read())
+    proxy_list = json.loads(open('assets/proxies.json').read())
 
-    for i in range(threads):
-        t = threading.Thread(target=run)
-        t.start()
+for i in range(threads):
+    t = threading.Thread(target=run)
+    t.start()
