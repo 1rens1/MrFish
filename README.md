@@ -28,11 +28,11 @@ This is a modified version by me.
 
 ## Options
 
--   `Form Request URL:` Form request URL
--   `Form Data Username [Account/Email]:` Name for username POST object (not for email)
--   `Form Data Password:` Name for password POST object (not for password)
--   `Threads [recommend max of 32]:` Number of threads will be run (Number must be between 0 and 5001)
--   `Enable Proxy [Y/N]:` Uses proxy or not. You can add/remove proxies in the `assets/proxies.json` file.
+- `Form Request URL:` Form request URL
+- `Form Data Username [Account/Email]:` Name for username POST object (not for email)
+- `Form Data Password:` Name for password POST object (not for password)
+- `Threads [recommend max of 32]:` Number of threads will be run (Number must be between 0 and 5001)
+- `Enable Proxy [Y/N]:` Uses proxy or not. You can add/remove proxies in the `assets/proxies.json` file.
 
 ## User Warning
 
