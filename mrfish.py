@@ -51,7 +51,6 @@ def run():
                 # If receiving multiple 429 status codes, tell the user
                 if r.status_code == 429:
                     print(f'[{date}] {username}:{password} - {r.status_code}; You are being rate limited!')
-                    continue
                 continue
             print(
                 f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password}] [Proxy: {proxy}]')
