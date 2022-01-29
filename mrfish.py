@@ -7,7 +7,6 @@ import threading
 from requests.exceptions import SSLError
 from datetime import datetime
 
-
 def generate_random_name():
     event = random.randint(0, 4)
     if event == 0:
@@ -18,7 +17,6 @@ def generate_random_name():
             random.choice(names)).lower()
     else:
         return str(random.choice(names)).lower() + random.choice(string.digits) + random.choice(string.digits)
-
 
 def generate_random_password():
     event = random.randint(0, 6)
@@ -31,10 +29,9 @@ def generate_random_password():
     else:
         return random.choice(string.digits) + random.choice(dictionary) + random.choice(names)
 
-
 def run():
+    proxy = None
     while True:
-        proxy = None
         if use_proxy == 'y':
             proxy = f'socks5://{random.choice(proxy_list)}'
         username = generate_random_name() + '@' + random.choice(emails) + \
@@ -46,13 +43,20 @@ def run():
                 str(formDataNamePass): password,
             }, proxies=dict(http=proxy, https=proxy))
             date = datetime.today().strftime('%H:%m:%S')
+            # If the status_code is 429, it means that the server is blocking the request.
+            # Change the proxy in this case
+            if r.status_code == 403 or r.status_code == 429 or r.status_code == 500 or r.status_code == 502 or r.status_code == 503 or r.status_code == 504:
+                proxy = f'socks5://{random.choice(proxy_list)}'
+                continue
             print(
-                f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password}] {proxy}')
+                f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password}] [Proxy: {proxy}]')
         except SSLError as e:
-            print('Error: URL can no longer be reached..')
+            proxy = f'socks5://{random.choice(proxy_list)}'
+            # print('Error: URL can no longer be reached..')
         except Exception as e:
-            print(f'Error: {e.__class__.__name__}')
-
+            proxy = f'socks5://{random.choice(proxy_list)}'
+            continue
+            # print(f'Error: {e.__class__.__name__}')
 
 mrfish_display = """.
  \033[93m       /`·.¸          \033[0m
