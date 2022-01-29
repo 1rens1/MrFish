@@ -34,8 +34,11 @@ def run():
     while True:
         if use_proxy == 'y':
             proxy = f'socks5://{random.choice(proxy_list)}'
-        username = generate_random_name() + '@' + random.choice(emails) + \
-            '.' + random.choice(ext)
+        if formDataNameLoginName == 'u':
+            username = generate_random_name()
+        if formDataNameLoginName == 'e':
+            username = generate_random_name() + '@' + random.choice(emails) + \
+                '.' + random.choice(ext)
         password = generate_random_password()
         try:
             r = requests.post(url, allow_redirects=False, data={
@@ -45,6 +48,10 @@ def run():
             date = datetime.today().strftime('%H:%m:%S')
             if r.status_code == 403 or r.status_code == 429 or r.status_code == 500 or r.status_code == 502 or r.status_code == 503 or r.status_code == 504:
                 proxy = f'socks5://{random.choice(proxy_list)}'
+                # If receiving multiple 429 status codes, tell the user
+                if r.status_code == 429:
+                    print(f'[{date}] {username}:{password} - {r.status_code}; You are being rate limited!')
+                    continue
                 continue
             print(
                 f'{date}> [Result: {r.status_code}] - [{formDataNameLogin}: {username}] - [{formDataNamePass}: {password}] [Proxy: {proxy}]')
@@ -71,6 +78,16 @@ if __name__ == '__main__':
         os.system(f'echo{i}')
     url = input(' Form Request URL: ')
     formDataNameLogin = input(' Form Data Username [Account/Email] Name: ')
+    while True:
+        formDataNameLoginName = input(' Is this a username or email? [u/e]: ')
+        if formDataNameLoginName.lower() in ('u', 'e'):
+            if formDataNameLoginName.lower() == 'u':
+                break
+            if formDataNameLoginName.lower() == 'e':
+                break
+        else:
+            print(' That is not a valid option')
+            continue
     formDataNamePass = input(' Form Data Password Name: ')
     while True:
         threads = input(' Threads [recommend max of 32]: ')
@@ -84,6 +101,8 @@ if __name__ == '__main__':
         use_proxy = input(' Enable Proxy [Y/N]: ')
         if use_proxy.lower() in ('y', 'n'):
             if use_proxy.lower() == 'y':
+                print('Since you are using the proxy setting, you might experience slower performance and less stability, however, we do filter status requests.\n\n')
+                print('A kind note to the proxy setting:\nThis setting might, on some sites, seem to not be working as you have not seen any recent requests.\n\n')
                 break
             if use_proxy.lower() == 'n':
                 break
