@@ -41,14 +41,16 @@ def run():
                 '.' + random.choice(ext)
         password = generate_random_password()
         try:
-            r = requests.post(url, allow_redirects=False, data={
+            r = requests.post(url, headers=headers, allow_redirects=False, data={
+                str(formDataNameCookie): str(headers['Cookie']),
+                str(formDataNameContentType): str(headers['Content-Type']),
                 str(formDataNameLogin): username,
                 str(formDataNamePass): password,
             }, proxies=dict(http=proxy, https=proxy))
             date = datetime.today().strftime('%H:%m:%S')
             if r.status_code == 403 or r.status_code == 429 or r.status_code == 500 or r.status_code == 502 or r.status_code == 503 or r.status_code == 504:
+                print(f'[{date}] {r.status_code} {r.reason} {r.url}')
                 proxy = f'socks5://{random.choice(proxy_list)}'
-                # If receiving multiple 429 status codes, tell the user
                 if r.status_code == 429:
                     print(f'[{date}] {username}:{password} - {r.status_code}; You are being rate limited!')
                 continue
@@ -64,7 +66,7 @@ def run():
 
 mrfish_display = """.
  \033[93m       /`·.¸          \033[0m
- \033[93m      /¸...¸`:·       \033[0m \033[93mMrFish\033[0m - Discord Nitro Phishing Form Spammer
+ \033[93m      /¸...¸`:·       \033[0m \033[93mMrFish\033[0m - Discord Nitro Phishing Form Spammer w/header support
  \033[93m  ¸.·´  ¸   `·.¸.·´)  \033[0m
  \033[93m : © ):´;      ¸  {   \033[0m By Daan Van Essen#1337 / Amadeus
  \033[93m  `·.¸ `·  ¸.·´\`·¸)  \033[0m Modified by rens#6161
@@ -76,7 +78,11 @@ if __name__ == '__main__':
     for i in mrfish_display_list:
         os.system(f'echo{i}')
     url = input(' Form Request URL: ')
+    headers = {'Cookie': '{formDataNameCookie}', 'Content-Type': '{formDataNameContentType}'}
     formDataNameLogin = input(' Form Data Username [Account/Email] Name: ')
+    formDataNamePass = input(' Form Data Password Name: ')
+    formDataNameCookie = input(' Required Cookie: ')
+    formDataNameContentType = input(' Content Type: ')
     while True:
         formDataNameLoginName = input(' Is this a username or email? [u/e]: ')
         if formDataNameLoginName.lower() in ('u', 'e'):
@@ -87,7 +93,6 @@ if __name__ == '__main__':
         else:
             print(' That is not a valid option')
             continue
-    formDataNamePass = input(' Form Data Password Name: ')
     while True:
         threads = input(' Threads [recommend max of 32]: ')
         if threads.isdigit() and 1 <= int(threads) <= 5000:
