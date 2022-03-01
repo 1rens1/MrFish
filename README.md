@@ -13,8 +13,10 @@
 
 ## About
 
-MrFish is a form spammer script created by [Daan Van Essen / Amadeus](https://hrzn.bio/teylver) for Discord phishing links.
-This is a modified version by me.
+MrFish is a form spammer script created by [Daan Van Essen / Amadeus](https://hrzn.bio/teylver) for Discord phishing links.<br/>
+This is a modified version by me.<br/>
+**PLEASE NOTE THAT THIS IS NOT FOR SENDING PHISHING LINKS OUT TO DISCORD SERVERS**<br/>
+**THIS IS A LOGIN FORM SPAMMER SPECIFICALLY FOR THOSE LINKS (egx: Spams login request to https://discordgift.scam/YgwndT89gh78)**
 
 ## Installation
 
