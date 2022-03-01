@@ -14,9 +14,9 @@
 ## About
 
 MrFish is a form spammer script created by [Daan Van Essen / Amadeus](https://hrzn.bio/teylver) for Discord phishing links.<br/>
-This is a modified version by me.<br/>
+This is a modified version by [me](https://github.com/1rens1).<br/>
 **PLEASE NOTE THAT THIS IS NOT FOR SENDING PHISHING LINKS OUT TO DISCORD SERVERS**<br/>
-**THIS IS A LOGIN FORM SPAMMER SPECIFICALLY FOR THOSE LINKS (egx: Spams login request to https://discordgift.scam/YgwndT89gh78)**
+**THIS IS A LOGIN FORM SPAMMER SPECIFICALLY FOR THOSE LINKS (egx: Spams login request to `https://discordgift.scam/YgwndT89gh78`)**
 
 ## Installation
 
@@ -28,7 +28,7 @@ This is a modified version by me.<br/>
 3. Run the script with<br/>
     `python mrfish.py` or `python3 mrfish.py` if you are using bash.
 
-## Options
+## Options/Prompts
 
 - `Form Request URL:` Form request URL
 - `Form Data Username [Account/Email]:` Name for username POST object (not for email)
@@ -38,8 +38,8 @@ This is a modified version by me.<br/>
 
 ## User Warning
 
-**Please do not use this other than spamming discord phishing links.
-We accept no responsibility to any person consequences of using this script.**
+**Please do not use this other for it's purpose.<br/>
+We accept no responsibility to any person consequences of using MrFish.**
 
 ## License
 
